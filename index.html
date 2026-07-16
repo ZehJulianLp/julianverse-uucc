@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Schneller Universal Unit & Currency Converter ohne Werbung und Tracking.">
+    <meta name="theme-color" content="#f4f7f8">
+    <title>julianverse-uucc</title>
+    <link rel="manifest" href="./manifest.json">
+    <link rel="icon" href="./icons/icon.svg" type="image/svg+xml">
+    <link rel="search" type="application/opensearchdescription+xml" href="./opensearch.xml" title="julianverse-uucc">
+    <link rel="stylesheet" href="./styles.css">
+    <script type="module" src="./src/app.js"></script>
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Universal Unit & Currency Converter</p>
+          <h1>julianverse-uucc</h1>
+        </div>
+        <div class="topbar-actions" aria-label="Anzeigeoptionen">
+          <select id="themeSelect" aria-label="Theme">
+            <option value="system">System</option>
+            <option value="light">Light</option>
+            <option value="dark">Dark</option>
+          </select>
+          <select id="langSelect" aria-label="Sprache">
+            <option value="de">DE</option>
+            <option value="en">EN</option>
+          </select>
+        </div>
+      </header>
+
+      <main>
+        <section class="converter-panel" aria-labelledby="converterTitle">
+          <div class="panel-head">
+            <h2 id="converterTitle">Umrechnung</h2>
+            <span id="statusPill" class="status-pill">Bereit</span>
+          </div>
+
+          <form id="converterForm" autocomplete="off">
+            <label for="queryInput">Eingabe</label>
+            <div class="input-row">
+              <input id="queryInput" name="q" type="text" inputmode="text" placeholder="49.99 USD EUR" aria-describedby="inputHint" autofocus>
+              <button type="submit">Berechnen</button>
+            </div>
+            <p id="inputHint" class="hint">Beispiele: 10 km mi, 5 ft cm, 98 f c, 1 gb mib</p>
+          </form>
+          <label class="fun-toggle">
+            <input id="funModeToggle" type="checkbox">
+            <span>Alles-Modus</span>
+          </label>
+
+          <details class="assumptions-panel">
+            <summary>Annahmen</summary>
+            <div class="assumptions-grid">
+              <label>Root px<input id="rootFontInput" type="number" min="1" step="0.5" value="16"></label>
+              <label>Em px<input id="emInput" type="number" min="1" step="0.5" value="16"></label>
+              <label>Line px<input id="lineHeightInput" type="number" min="1" step="0.5" value="19.2"></label>
+              <label>Viewport B<input id="viewportWidthInput" type="number" min="1" step="1" value="1920"></label>
+              <label>Viewport H<input id="viewportHeightInput" type="number" min="1" step="1" value="1080"></label>
+              <label>EUR/kWh<input id="electricityPriceInput" type="number" min="0" step="0.01" value="0.35"></label>
+              <label>EUR/l<input id="fuelPriceInput" type="number" min="0" step="0.01" value="1.80"></label>
+              <label>kg CO2/km<input id="co2Input" type="number" min="0" step="0.01" value="0.17"></label>
+            </div>
+          </details>
+
+          <form id="structuredForm" class="structured-form" autocomplete="off">
+            <div class="panel-head compact-head">
+              <h2>Dropdown-Suche</h2>
+              <button id="swapButton" type="button" class="ghost">Tauschen</button>
+            </div>
+            <div class="structured-grid">
+              <label>
+                Wert
+                <input id="structuredValue" type="text" inputmode="decimal" placeholder="10">
+              </label>
+              <label>
+                Von
+                <input id="fromSearch" list="unitOptions" placeholder="km oder Euro">
+              </label>
+              <label>
+                Nach
+                <input id="toSearch" list="unitOptions" placeholder="mi oder USD">
+              </label>
+              <button type="submit">Umrechnen</button>
+            </div>
+            <datalist id="unitOptions"></datalist>
+          </form>
+
+          <section class="result-box" aria-live="polite" aria-atomic="true">
+            <p id="resultText" class="result-text">Gib eine Umrechnung ein.</p>
+            <p id="detailText" class="detail-text"></p>
+            <div class="button-row">
+              <button id="copyResultButton" type="button" disabled>Ergebnis kopieren</button>
+              <button id="copyLinkButton" type="button" disabled>Link kopieren</button>
+              <button id="favoriteButton" type="button" disabled>Favorit speichern</button>
+            </div>
+            <canvas id="qrCanvas" class="qr-canvas" width="164" height="164" hidden aria-label="QR-Code für den teilbaren Link"></canvas>
+          </section>
+        </section>
+
+        <section class="side-grid">
+          <section class="list-panel" aria-labelledby="favoritesTitle">
+            <div class="panel-head">
+              <h2 id="favoritesTitle">Favoriten</h2>
+              <button id="clearFavoritesButton" type="button" class="ghost">Leeren</button>
+            </div>
+            <div id="favoritesList" class="item-list empty">Noch keine Favoriten.</div>
+          </section>
+
+          <section class="list-panel" aria-labelledby="historyTitle">
+            <div class="panel-head">
+              <h2 id="historyTitle">Verlauf</h2>
+              <button id="clearHistoryButton" type="button" class="ghost">Leeren</button>
+            </div>
+            <div id="historyList" class="item-list empty">Noch kein Verlauf.</div>
+          </section>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>
