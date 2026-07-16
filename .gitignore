@@ -1,0 +1,24 @@
+# Dependencies and generated output
+node_modules/
+dist/
+coverage/
+
+# Local deployment configuration
+deploy.sh
+
+# Local environment files
+.env
+.env.*
+!.env.example
+
+# Editor and operating-system files
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
